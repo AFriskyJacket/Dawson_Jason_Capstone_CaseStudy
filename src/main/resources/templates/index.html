@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="utf-8"/>
+    <title>Product Manager</title>
+</head>
+<body>
+<div style="margin:auto";>
+    <h1>Product List</h1>
+    <a href="/new">Upload New Image</a>
+    <br/><br/>
+    <table style=border-collapse;>
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Id</th>
+            <th>Tags</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="imageMetaData : ${metaDataList}">
+            <td th:text="${imageMetaData.name}">Name</td>
+            <td th:text="${imageMetaData.id}">ID</td>
+            <td th:text="${imageMetaData.tags}">Tags</td>
+
+            <td>
+                <a th:href="/@{'/edit/' + ${imageMetaData.id}}">Edit</a>
+                &nbsp;&nbsp;&nbsp;
+                <a th:href="/@{'/delete/' + ${imageMetaData.id}}">Delete</a>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+</div>
+</body>
+</html>
