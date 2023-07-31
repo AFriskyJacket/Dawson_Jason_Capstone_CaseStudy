@@ -1,34 +1,34 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://www.thymeleaf.org">
+<html lang="en"   xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="utf-8"/>
-    <title>Product Manager</title>
+    <meta charset="UTF-8">
+    <title>JustCatPics</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"   rel="stylesheet"       integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
 </head>
 <body>
-<div style="margin:auto";>
-    <h1>Product List</h1>
-    <a href="/new">Upload New Image</a>
-    <br/><br/>
-    <table style=border-collapse;>
-        <thead>
+<div th:replace="~{fragments/header :: header}"></div>
+<br /><br />
+<div class="container">
+    <div class="row">
+        <h1 class="text-center"> Meow </h1>
+    </div>
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
         <tr>
-            <th>Name</th>
-            <th>Id</th>
-            <th>Tags</th>
+            <th></th>
+            <th></th>
+            <th></th>
+            <th></th>
         </tr>
         </thead>
         <tbody>
-        <tr th:each="imageMetaData : ${metaDataList}">
-            <td th:text="${imageMetaData.name}">Name</td>
-            <td th:text="${imageMetaData.id}">ID</td>
-            <td th:text="${imageMetaData.tags}">Tags</td>
-
-            <td>
-                <a th:href="/@{'/edit/' + ${imageMetaData.id}}">Edit</a>
-                &nbsp;&nbsp;&nbsp;
-                <a th:href="/@{'/delete/' + ${imageMetaData.id}}">Delete</a>
-            </td>
+        <tr>
+            <td ><!--th:if="${pictures.empty}" colspan="2"--> Pictures Coming Soon! </td>
+        </tr>
+        <tr>
+            <td><!--<span th:text = "${pictures.name}"></span>Name--></td>
+            <td><!--<span th:text = "${pictures.user}"></span>Uploader--></td>
+            <td><!-- th:each = "${pictures.tags}"--></td>
         </tr>
         </tbody>
     </table>
