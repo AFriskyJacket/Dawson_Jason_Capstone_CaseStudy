@@ -53,8 +53,10 @@ public class ImageServiceImpl implements ImageService {
     private ImageMetaData mapDtoToImageMetaData(ImageDto dto){
         ImageMetaData newData = new ImageMetaData();
         newData.setName(dto.getImageName());
-        Collection<Tag> allTags = tagRepository.findAll();
-        //newData.setTags(dto.getTags().stream().map(tag->tagRepository.findByName(tag)).collect(Collectors.toList()));
+        //Collection<Tag> allTags = tagRepository.findAll();
+        if (!dto.getTags().isEmpty()) {
+            newData.setTags(dto.getTags().stream().map(tag -> tagRepository.findByName(tag).get()).collect(Collectors.toList()));
+        }
         newData.setCatEnjoyer(catEnjoyerRepository.findByUsername(dto.getCreator()));
 
         return newData;

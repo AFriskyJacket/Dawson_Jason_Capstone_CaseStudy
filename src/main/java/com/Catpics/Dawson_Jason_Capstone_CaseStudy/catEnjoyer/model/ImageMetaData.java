@@ -11,7 +11,6 @@ import java.util.Collection;
 import java.util.Objects;
 
 @NoArgsConstructor
-@ToString
 @Getter
 @Setter
 @Entity
@@ -49,5 +48,13 @@ public class ImageMetaData {
     @Override
     public int hashCode() {
         return Objects.hash(getId(), getName());
+    }
+
+    @Override
+    public String toString() {
+        return "ImageMetaData{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                '}';
     }
 }

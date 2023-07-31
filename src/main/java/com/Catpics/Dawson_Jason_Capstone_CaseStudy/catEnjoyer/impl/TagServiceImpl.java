@@ -7,6 +7,7 @@ import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Collection;
+import java.util.List;
 import java.util.stream.Collectors;
 
 @AllArgsConstructor
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 public class TagServiceImpl implements TagService {
     private TagRepository tagRepository;
     @Override
-    public Collection<String> findAllTags() {
+    public Collection<String> findAllTagNames() {
         return tagRepository.findAll().stream().map(Tag::getName).collect(Collectors.toList());
     }
 

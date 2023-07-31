@@ -7,28 +7,34 @@
 </head>
 <body>
 <div th:replace="~{fragments/header :: header}"></div>
-<div th:unless="${#lists.isEmpty(tags)}">
+<div th:unless="${#lists.isEmpty(allTagNames)}">
   <table>
     <th>Tags</th>
-  <tr th:each="tags : ${tags}"></tr>
-    <td >
-      <a  th:text="${tags}" class="nav-link active" aria-current="page" th:href="@{/search/{tag}(tag=${tags})}"></a>
-    </td>
+    <tr th:each="tagName: ${allTagNames}">
+      <td><a th:text="${tagName}" th:href="@{/search/{tag}(tag=${tagName})}"></a></td>
+    </tr>
   </table>
 </div>
-<div th:unless="${#lists.isEmpty(tags)}">
+<div th:unless="${#lists.isEmpty(imageMetaData)}">
   <table>
     <tr>
       <th>Name</th>
       <th>Uploader</th>
       <th>Tags</th>
     </tr>
-    <tr th:each="imagesMeta : ${imagesMeta}">
-      <td th:text="${imagesMeta.name}"></td>
-      <td th:text="${imagesMeta.creator}"></td>
-      <tr th:each="imageTags : ${imageTags}">
-        <td th:text="${imageTags.name}"></td>
-      </tr>
+    <tr th:each="metaData : ${imageMetaData}">
+      <td th:text="${metaData.imageName}"></td>
+      <td th:text="${metaData.creator}"></td>
+      <td th:text="${metaData.tags}"></td>
+      <!--<td>
+        <table>
+          <tr th:each="imageTags : *{tags}">
+            <td th:text="${imageTags}">nooooo</td>
+          </tr>
+        </table>
+      </td>-->
+
+           <!--th:href="@{/search/{tag}(tag=${imageTags})}"></a></td>-->
     </tr>
     </table>
 </div>

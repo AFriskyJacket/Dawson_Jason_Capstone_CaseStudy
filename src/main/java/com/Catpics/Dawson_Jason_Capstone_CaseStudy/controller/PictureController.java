@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
 import java.util.Collection;
+import java.util.List;
 
 @Controller
 @AllArgsConstructor
@@ -39,7 +40,7 @@ public class PictureController {
 
         CatEnjoyerDto catEnjoyerDto = new CatEnjoyerDto();
         ImageDto imageDto = new ImageDto();
-        Collection<String> tagNames = tagService.findAllTags();
+        Collection<String> tagNames = tagService.findAllTagNames();
 
         mv.addObject("catEnjoyer", catEnjoyerDto);
         mv.addObject("metaData", imageDto );
@@ -50,15 +51,16 @@ public class PictureController {
     @PostMapping("/upload/newMeta")
     public ModelAndView uploadImage(@Valid @ModelAttribute("metaData") ImageDto imageDto,
                                     @Valid @ModelAttribute("catEnjoyer") CatEnjoyerDto catEnjoyerDto,
-                                    @Valid @ModelAttribute("checkedTags") Collection<String> tagNames){
+                                    @ModelAttribute("tags")List<String> tags)
+    {
         ModelAndView newMV = new ModelAndView();
         System.out.println(imageDto);
         System.out.println(catEnjoyerDto);
-        System.out.println(tagNames);
+        System.out.println(tags);
         imageDto.setCreator(catEnjoyerDto.getUsername());
         if (catEnjoyerService.isValidCatEnjoyer(catEnjoyerDto)){
             System.out.println("We valid boys");
-            imageDto.setTags(tagNames);
+            //imageDto.setTags(tagNames);
             try {
                 imageService.saveImage(imageDto);
                 System.out.println("image saved?");
@@ -77,7 +79,11 @@ public class PictureController {
         ModelAndView mv = searchImages();
         System.out.println("tag: " + tagName);
 
-        mv.addObject("imagesMeta", imageService.findAllImagesByTag(tagName));
+        Collection<ImageDto> imageDtos = imageService.findAllImagesByTag(tagName);
+        System.out.println(imageDtos);
+        mv.addObject("imageMetaData", imageDtos);
+
+
         return mv;
     }
     /*@GetMapping("/search/{username}")
@@ -90,8 +96,8 @@ public class PictureController {
     @GetMapping("/search")
     public ModelAndView searchImages(){
         ModelAndView mv = new ModelAndView("images");
-        mv.addObject("tags",tagService.findAllTags());
-        System.out.println(tagService.findAllTags().toString());
+        mv.addObject("allTagNames", tagService.findAllTagNames());
+        System.out.println(tagService.findAllTagNames());
         return mv;
     }
     @GetMapping("/newTag/{tagName}")
